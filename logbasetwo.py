@@ -8,22 +8,29 @@ class Application(tk.Tk):
         super().__init__(*args, **kwargs)
         self.title("LogBaseTwo")
         self.resizable(width=False, height=False)
-        self.geometry("600x300")
-        self.logbasetwo = LogCalculator(self, padding = "8 8 12 12").grid(row = 0)
+        # self.geometry("400x350")
+        notebook = ttk.Notebook(self)
+        notebook.grid(row=0)
+        log2frame = ttk.Frame(notebook)
+        baseConversion = ttk.Frame(notebook)
+        notebook.add(log2frame, text="Log Base Two")
+        notebook.add(baseConversion, text="Base Conversion")
+        LogCalculator(log2frame).grid(row = 0, padx=24, pady=24)
 
-class LogCalculator(ttk.Frame):
+
+class LogCalculator(tk.Frame):
     """Calculates Log Base Two"""
     def __init__(self, parent, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
-        self.copyIcon = tk.PhotoImage(file=r"./assets/copy.png")
-        self.copyIcon.configure(height=16, width=16)
+        # self.copyIcon = tk.PhotoImage(file=r"./assets/copy.png")
+        # self.copyIcon.configure(height=16, width=16)
         self.input = tk.StringVar()
-        ttk.Label(self, text="lg", font=("Segoe UI", 16) ).grid(row=0, column=0)
-        self.entry_form = ttk.Entry(self, textvariable=self.input, font=("Segoe UI", 16)).grid(row=0, column=1)
-        ttk.Button(self, text="=", command=self.calculate).grid(row=0, column=2)
+        ttk.Label(self, text="lg", font=("Segoe UI", 16)).grid(row=0, column=0, sticky=(tk.E))
+        Entry(self,  textvariable=self.input, font=("Segoe UI", 16)).grid(row=0, column=1)
+        ttk.Button(self, text="=", command=self.calculate).grid(row=1, column=0)
         self.output_text = tk.StringVar()
         self.output_text.set("Enter a value")
-        ttk.Label(self, textvariable=self.output_text, font=("Segoe UI", 16)).grid(row=0, column=3)
+        ttk.Label(self, textvariable=self.output_text, font=("Segoe UI", 16)).grid(row=1, column=1)
         self.copy_status = tk.StringVar()
         self.copy_status.set("Copy")
     def calculate(self):
@@ -31,13 +38,18 @@ class LogCalculator(ttk.Frame):
         try:
             self.output_text.set(math.log2(float(self.input.get())))
             self.copy_status.set("Copy")
-            ttk.Button(self, textvariable=self.copy_status, command=self.copy).grid(row=0, column=4)
+            ttk.Button(self, textvariable=self.copy_status, command=self.copy).grid(row=2, column=1)
         except ValueError:
             self.output_text.set("Bad input")
     def copy(self):
         self.clipboard_append(self.output_text.get())
         self.copy_status.set("Copied")
 
+class Entry(ttk.Entry):
+    def __init__(self, parent, *args, **kwargs):
+        super().__init__(parent, *args, **kwargs)
+        self.focus()
+        
 
 
 if __name__ == "__main__":
