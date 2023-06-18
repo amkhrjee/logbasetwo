@@ -42,6 +42,7 @@ class LogCalculator(tk.Frame):
         except ValueError:
             self.output_text.set("Bad input")
     def copy(self):
+        self.clipboard_clear()
         self.clipboard_append(self.output_text.get())
         self.copy_status.set("Copied")
 
