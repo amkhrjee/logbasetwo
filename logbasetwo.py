@@ -1,5 +1,10 @@
+# Author: Aniruddha Mukherjee
+# Last edit: June 2023
+
 import tkinter as tk
 from tkinter import ttk 
+from tkinter import messagebox
+import webbrowser
 
 
 # fonts
@@ -22,9 +27,23 @@ class Application(tk.Tk):
         menu_pref = tk.Menu(menubar)
         menu_about = tk.Menu(menubar)
         menubar.add_cascade(menu=menu_file, label='File')
-        menubar.add_cascade(menu=menu_pref, label='Preferences')
         menubar.add_cascade(menu=menu_about, label='About')
+        # menubar.add_cascade(menu=menu_pref, label='Preferences')
         self.config(menu=menubar)
+
+        # menu items
+        # File Menu
+        menu_file.add_command(label="New Window", command=self.new_window)
+        menu_file.add_command(label="Enable Transparency", command=self.make_transparent)
+        menu_file.add_command(label="Disable Transparency", command=self.undo_transparent)
+        menu_file.add_command(label="Quit", command=self.quit_app)
+        # Preferences
+        # todo
+
+        # About
+        menu_about.add_command(label="License", command=self.view_license)
+        menu_about.add_command(label="Report Bug", command=self.report_bug)
+        menu_about.add_command(label="View source code", command=self.view_source)
         # tabs
         notebook = ttk.Notebook(self)
         notebook.grid(row=0)
@@ -37,7 +56,27 @@ class Application(tk.Tk):
         LogCalculator(log2frame).grid(row = 0, padx=16, pady=24)
         BaseConversion(baseConversion).grid(row=0, padx=16, pady=24)
         # UnitConversion(unitConversion).grid(row=0, padx=16, pady=24)
+    def new_window(self):
+        another_app = Application()
+        another_app.mainloop()
 
+    def quit_app(self):
+        if messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
+            self.destroy()
+
+    def make_transparent(self):
+            self.attributes("-alpha", 0.8)
+
+    def undo_transparent(self):
+            self.attributes("-alpha", 1.0)
+    def view_license(self):
+        webbrowser.open_new("https://github.com/amkhrjee/logbasetwo/blob/main/LICENSE")
+
+    def report_bug(self):
+        webbrowser.open_new("https://github.com/amkhrjee/logbasetwo/issues/new")
+
+    def view_source(self):
+        webbrowser.open_new("https://github.com/amkhrjee/logbasetwo")
 
 class LogCalculator(tk.Frame):
     """Calculates Log Base Two"""
@@ -50,7 +89,7 @@ class LogCalculator(tk.Frame):
         self.output_text = tk.StringVar(self)
         self.output_text.set("")
         ttk.Label(self, textvariable=self.output_text, font=("TkDefaultFont", 24)).grid(row=2, column=0, sticky="w")
-        self.copy_status = tk.StringVar()
+        self.copy_status = tk.StringVar(self)
         self.copy_status.set("Copy to clipboard")
         self.entry.bind("<Return>", self.calculate)
         self.prev_results = {}
