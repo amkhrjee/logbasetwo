@@ -94,6 +94,8 @@ class BaseConversion(tk.Frame):
         # output
         self.out_frame = tk.Frame(self)
         self.out_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=24)
+        # allocate all the available space horizontally to column 1 inside self.out_frame
+        self.out_frame.columnconfigure(1, weight=1)
 
         self.hex_out = tk.StringVar(self.out_frame)
         self.octal_out = tk.StringVar(self.out_frame)
