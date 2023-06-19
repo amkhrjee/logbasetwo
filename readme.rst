@@ -22,10 +22,10 @@ Screenshots
 Here are some screenshots of the LogBaseTwo app:
 
 1. Log Base Two Calculator:
-![Log Base Two Calculator]("./assets/log.png")
+![Log Base Two Calculator](./assets/log.png)
 
 2. Base Conversion:
-![Base Conversion]("./assets/base.png")
+![Base Conversion](./assets/base.png)
 
 Contributing
 ------------
