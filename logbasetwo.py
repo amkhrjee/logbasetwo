@@ -84,8 +84,8 @@ class BaseConversion(tk.Frame):
         super().__init__(parent, *args, **kwargs)
         self.option_var = tk.StringVar(self)
         self.option_var.set("Hexadecimal")
-        self.options = ("Hexadecimal", 'Binary', "Decimal", "Octal", "Sexagesimal")
-        ttk.OptionMenu(self, self.option_var, self.options[0], *self.options, command=self.option_changed).grid(row=0, column=0)
+        self.options = ("Hexadecimal", "Binary", "Decimal", "Octal", "Sexagesimal")
+        ttk.OptionMenu(self, self.option_var, self.options[0], *self.options).grid(row=0, column=0)
         self.input = tk.StringVar(self)
         self.entry = Entry(self, textvariable=self.input, font=input_font)
         self.entry.grid(row=0, column=1)
@@ -110,7 +110,7 @@ class BaseConversion(tk.Frame):
             "Hexadecimal": 16,
             "Sexagesimal": 60
         }
-        self.error.grid_remove()
+        self.error.grid_forget()
         try:
             input_num = int(self.input.get())
             if self.option_var.get() != "Decimal":
@@ -165,8 +165,8 @@ class BaseConversion(tk.Frame):
         sexagesimal = f"{degrees}°{minutes}'{seconds}\""
         return sexagesimal
 
-    def option_changed(self, *args):
-        print(self.option_var.get())
+    # def option_changed(self, *args):
+        # print(self.option_var.get())
 if __name__ == "__main__":
     app = Application()
     app.mainloop()
