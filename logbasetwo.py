@@ -89,14 +89,81 @@ class BaseConversion(tk.Frame):
         self.input = tk.StringVar(self)
         self.entry = Entry(self, textvariable=self.input, font=input_font)
         self.entry.grid(row=0, column=1)
+        self.entry.bind("<Return>", self.calculate)
 
         # output
         self.out_frame = tk.Frame(self)
-        self.out_frame.grid(row=1)
-        ttk.Label(self.out_frame, text="Binary", font=sub_title_font).grid(row=0, column=0, sticky="w")
-        binary_out = tk.StringVar(self.out_frame)
-        binary_out.set("100100101")
-        ttk.Label(self.out_frame, textvariable=binary_out, font=()).grid(row=0, column=1, sticky="e")
+        self.out_frame.grid(row=1, column=0, columnspan=2, sticky="ew", pady=24)
+
+        self.hex_out = tk.StringVar(self.out_frame)
+        self.octal_out = tk.StringVar(self.out_frame)
+        self.binary_out = tk.StringVar(self.out_frame)
+        self.decimal_out = tk.StringVar(self.out_frame)
+        self.sexagesimal_out = tk.StringVar(self.out_frame)
+
+        self.error = ttk.Label(text="Bad Input", font=sub_title_font)
+        
+    def calculate(self, *args):
+        base = {
+            "Binary": 2,
+            "Octal": 8,
+            "Hexadecimal": 16,
+            "Sexagesimal": 60
+        }
+        self.error.grid_remove()
+        try:
+            input_num = int(self.input.get())
+            if self.option_var.get() != "Decimal":
+                decimal = int(self.input.get(), base[self.option_var.get()])
+            else:
+                decimal = input_num
+            octal = oct(decimal)
+            hexnum = hex(decimal)
+            binary = bin(decimal)
+            sexagesimal_txt = self.decimal_to_sexagesimal(decimal)
+            
+            # hex
+            if self.option_var.get() != "Hexadecimal":
+                ttk.Label(self.out_frame, text="Hexadecimal", font=sub_title_font).grid(row=0, column=0, sticky="w")
+                self.hex_out.set(str(hexnum))
+                ttk.Label(self.out_frame, textvariable=self.hex_out, font=sub_title_font).grid(row=0, column=1, sticky="e")
+                ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=1, column=0, columnspan=2, sticky="ew", pady=5)
+        
+            # binary
+            if self.option_var.get() != "Binary":
+                ttk.Label(self.out_frame, text="Binary", font=sub_title_font).grid(row=2, column=0, sticky="w")
+                self.binary_out.set(str(binary))
+                ttk.Label(self.out_frame, textvariable=self.binary_out, font=sub_title_font).grid(row=2, column=1, sticky="e")
+                ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=3, column=0, columnspan=2, sticky="ew", pady=5)
+            
+            # decimal
+            if self.option_var.get() != "Decimal":
+                ttk.Label(self.out_frame, text="Decimal", font=sub_title_font).grid(row=4, column=0, sticky="w")
+                self.decimal_out.set(str(decimal))
+                ttk.Label(self.out_frame, textvariable=self.decimal_out, font=sub_title_font).grid(row=4, column=1, sticky="e")
+                ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=5, column=0, columnspan=2, sticky="ew", pady=5)
+            
+            # Octal
+            if self.option_var.get() != "Octal":
+                ttk.Label(self.out_frame, text="Octal", font=sub_title_font).grid(row=6, column=0, sticky="w")
+                self.octal_out.set(str(octal))
+                ttk.Label(self.out_frame, textvariable=self.octal_out, font=sub_title_font).grid(row=6, column=1, sticky="e")
+                ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=7, column=0, columnspan=2, sticky="ew", pady=5)
+
+            # sexagesimal
+            if self.option_var.get() != "Sexagesimal":
+                ttk.Label(self.out_frame, text="Sexagesimal", font=sub_title_font).grid(row=8, column=0, sticky="w")
+                self.sexagesimal_out.set(sexagesimal_txt)
+                ttk.Label(self.out_frame, textvariable=self.sexagesimal_out, font=sub_title_font).grid(row=8, column=1, sticky="e")
+        except ValueError:
+            self.error.grid(row=0)
+        
+    def decimal_to_sexagesimal(self, decimal_number):
+        degrees = int(decimal_number)
+        minutes = int((decimal_number - degrees) * 60)
+        seconds = int(((decimal_number - degrees) * 60 - minutes) * 60)
+        sexagesimal = f"{degrees}°{minutes}'{seconds}\""
+        return sexagesimal
 
     def option_changed(self, *args):
         print(self.option_var.get())
