@@ -14,7 +14,13 @@ Installation
 
 Download the Windows setup file. 
 
-or, download the dist zip to use without installation.
+or, download the LogBaseTwo[dot]zip to use without installation.
+
+Building from source
+---------------------
+You can easily build from source for your OS.
+
+Just run `build.ps1`, `build.bat` or `build.sh` depending on your platform.
 
 Screenshots
 -----------
