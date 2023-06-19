@@ -30,12 +30,13 @@ class Application(tk.Tk):
         notebook.grid(row=0)
         log2frame = ttk.Frame(notebook, padding="24")
         baseConversion = ttk.Frame(notebook)
-        unitConversion = ttk.Frame(notebook)
+        # unitConversion = ttk.Frame(notebook)
         notebook.add(log2frame, text="Log Base Two")
         notebook.add(baseConversion, text="Base Conversion")
-        notebook.add(unitConversion, text="Unit Conversion")
+        # notebook.add(unitConversion, text="Unit Conversion")
         LogCalculator(log2frame).grid(row = 0, padx=16, pady=24)
         BaseConversion(baseConversion).grid(row=0, padx=16, pady=24)
+        # UnitConversion(unitConversion).grid(row=0, padx=16, pady=24)
 
 
 class LogCalculator(tk.Frame):
@@ -123,39 +124,39 @@ class BaseConversion(tk.Frame):
             hexnum = hex(decimal)
             binary = bin(decimal)
             sexagesimal_txt = self.decimal_to_sexagesimal(decimal)
+            self.hex_out.set(str(hexnum))
+            self.binary_out.set(str(binary))
+            self.decimal_out.set(str(decimal))
+            self.octal_out.set(str(octal))
+            self.sexagesimal_out.set(sexagesimal_txt)
             
             # hex
             if self.option_var.get() != "Hexadecimal":
                 ttk.Label(self.out_frame, text="Hexadecimal", font=sub_title_font).grid(row=0, column=0, sticky="w")
-                self.hex_out.set(str(hexnum))
                 ttk.Label(self.out_frame, textvariable=self.hex_out, font=sub_title_font).grid(row=0, column=1, sticky="e")
                 ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=1, column=0, columnspan=2, sticky="ew", pady=5)
-        
+         
             # binary
             if self.option_var.get() != "Binary":
                 ttk.Label(self.out_frame, text="Binary", font=sub_title_font).grid(row=2, column=0, sticky="w")
-                self.binary_out.set(str(binary))
                 ttk.Label(self.out_frame, textvariable=self.binary_out, font=sub_title_font).grid(row=2, column=1, sticky="e")
                 ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=3, column=0, columnspan=2, sticky="ew", pady=5)
             
             # decimal
             if self.option_var.get() != "Decimal":
                 ttk.Label(self.out_frame, text="Decimal", font=sub_title_font).grid(row=4, column=0, sticky="w")
-                self.decimal_out.set(str(decimal))
                 ttk.Label(self.out_frame, textvariable=self.decimal_out, font=sub_title_font).grid(row=4, column=1, sticky="e")
                 ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=5, column=0, columnspan=2, sticky="ew", pady=5)
             
             # Octal
             if self.option_var.get() != "Octal":
                 ttk.Label(self.out_frame, text="Octal", font=sub_title_font).grid(row=6, column=0, sticky="w")
-                self.octal_out.set(str(octal))
                 ttk.Label(self.out_frame, textvariable=self.octal_out, font=sub_title_font).grid(row=6, column=1, sticky="e")
                 ttk.Separator(self.out_frame, orient=tk.HORIZONTAL).grid(row=7, column=0, columnspan=2, sticky="ew", pady=5)
 
             # sexagesimal
             if self.option_var.get() != "Sexagesimal":
                 ttk.Label(self.out_frame, text="Sexagesimal", font=sub_title_font).grid(row=8, column=0, sticky="w")
-                self.sexagesimal_out.set(sexagesimal_txt)
                 ttk.Label(self.out_frame, textvariable=self.sexagesimal_out, font=sub_title_font).grid(row=8, column=1, sticky="e")
         except ValueError:
             self.error.grid(row=0)
@@ -167,8 +168,7 @@ class BaseConversion(tk.Frame):
         sexagesimal = f"{degrees}°{minutes}'{seconds}\""
         return sexagesimal
 
-    # def option_changed(self, *args):
-        # print(self.option_var.get())
+
 if __name__ == "__main__":
     app = Application()
     app.mainloop()
