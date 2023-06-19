@@ -1,11 +1,17 @@
 # Author: Aniruddha Mukherjee
 # Last edit: June 2023
 
+import os
+import ctypes
+import webbrowser
 import tkinter as tk
 from tkinter import ttk 
 from tkinter import messagebox
-import webbrowser
 
+# app icon
+myappid = 'amkhrjee.dataentryapp.csvfiles.0.0.1'  # arbitrary string
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+basedir = os.path.dirname(__file__)
 
 # fonts
 title_font = ("TkDefaultFont", 24, "bold")
@@ -19,6 +25,7 @@ class Application(tk.Tk):
         super().__init__(*args, **kwargs)
         self.title("LogBaseTwo")
         self.resizable(width=False, height=False)
+        self.iconbitmap(os.path.join(basedir, "favicon.ico"))
         # self.geometry("400x350")
         # menu bar
         self.option_add('*tearOff', tk.FALSE)
