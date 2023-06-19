@@ -22,7 +22,7 @@ class Application(tk.Tk):
         menu_pref = tk.Menu(menubar)
         menu_about = tk.Menu(menubar)
         menubar.add_cascade(menu=menu_file, label='File')
-        menubar.add_cascade(menu=menu_pref, label='Prefernces')
+        menubar.add_cascade(menu=menu_pref, label='Preferences')
         menubar.add_cascade(menu=menu_about, label='About')
         self.config(menu=menubar)
         # tabs
