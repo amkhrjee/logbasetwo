@@ -23,7 +23,7 @@ Here are some screenshots of the LogBaseTwo app:
 
 1. Log Base Two Calculator:
 
-   .. image:: ./assets/log.png
+   .. image:: https://imgur.com/a/KqPp0Rw
       :alt: Log Base Two Calculator
 
 2. Base Conversion:
