@@ -2,15 +2,17 @@
 # Last edit: June 2023
 
 import os
-import ctypes
+if os.name == 'nt':
+    import ctypes
+    # app icon
+    myappid = 'amkhrjee.dataentryapp.csvfiles.0.0.1'  # arbitrary string
+    ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 import webbrowser
 import tkinter as tk
 from tkinter import ttk 
 from tkinter import messagebox
 
-# app icon
-myappid = 'amkhrjee.dataentryapp.csvfiles.0.0.1'  # arbitrary string
-ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
+
 basedir = os.path.dirname(__file__)
 
 # fonts
@@ -25,8 +27,8 @@ class Application(tk.Tk):
         super().__init__(*args, **kwargs)
         self.title("LogBaseTwo")
         self.resizable(width=False, height=False)
-        self.iconbitmap(os.path.join(basedir, "favicon.ico"))
-        # self.geometry("400x350")
+        if os.name == 'nt':
+            self.iconbitmap(os.path.join(basedir, "favicon.ico"))
         # menu bar
         self.option_add('*tearOff', tk.FALSE)
         menubar = tk.Menu(self)
