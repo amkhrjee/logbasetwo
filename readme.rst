@@ -27,7 +27,7 @@ Building from source
 
 Download source code and start a `venv` environment in the project directory.
 
-Next, install all the dependencies using the command `pip install -r requirements.txt`
+Next, install all the dependencies using the command ``pip install -r requirements.txt``
 
 Now, run suitable build script according to your system.
 
