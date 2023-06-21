@@ -12,9 +12,9 @@ Features
 Installation
 ------------
 
-> The current minimum requirement for Windows is 10. Windows 7 and 8 support is coming soon.
+	The current minimum requirement for Windows is Windows 10. Windows 7 and 8 support is coming soon.
 
-Windows 10
+Windows 10 & 11
 `````````````
 Download the Windows setup file from the latest release. Alternatively, download the zip and directly run the executable without installing.
 
@@ -27,12 +27,9 @@ Building from source
 
 Download source code and start a `venv` environment in the project directory.
 
-Next, install all the dependencies using the command
-```sh
-pip install -r requirements.txt
-```
+Next, install all the dependencies using the command `pip install -r requirements.txt`
 
-Now, run suitable build script suitable to your system.
+Now, run suitable build script according to your system.
 
 Screenshots
 -----------
