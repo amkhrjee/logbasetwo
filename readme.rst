@@ -12,15 +12,27 @@ Features
 Installation
 ------------
 
-Download the Windows setup file. 
+> The current minimum requirement for Windows is 10. Windows 7 and 8 support is coming soon.
 
-or, download the LogBaseTwo[dot]zip to use without installation.
+Windows 10
+`````````````
+Download the Windows setup file from the latest release. Alternatively, download the zip and directly run the executable without installing.
+
+Linux
+`````````
+Download the LogBaseTwoLinux.zip and run the executable.
 
 Building from source
 ---------------------
-You can easily build from source for your OS.
 
-Just run `build.ps1`, `build.bat` or `build.sh` depending on your platform.
+Download source code and start a `venv` environment in the project directory.
+
+Next, install all the dependencies using the command
+```sh
+pip install -r requirements.txt
+```
+
+Now, run suitable build script suitable to your system.
 
 Screenshots
 -----------
